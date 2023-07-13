@@ -35,7 +35,7 @@ module.exports = {
     // update a user by id
     async updateUser(req, res) {
         try {
-            const user = await User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true, runValidators: true});
+            const user = await User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true, runValidators: true });
 
         } catch (err) {
             res.status(400).json(err);
@@ -50,6 +50,24 @@ module.exports = {
                 return res.status(404).json({ message: 'No user with this id!' });
             }
             res.json(user);
+        } catch (err) {
+            res.status(400).json(err);
+        }
+    },
+    async addFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate({ _id: req.params.userId },
+                { $addToSet: { friends: req.params.friendId } },
+                { new: true });
+        } catch (err) {
+            res.status(400).json(err);
+        }
+    },
+    async deleteFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate({ _id: req.params.userId },
+                { $pull: { friends: req.params.friendId } },
+                { new: true });
         } catch (err) {
             res.status(400).json(err);
         }
