@@ -49,7 +49,6 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({ message: 'No user with this id!' });
             }
-            await Thought.deleteMany({ username: user.username });
             res.json(user);
         } catch (err) {
             res.status(400).json(err);
