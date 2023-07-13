@@ -28,7 +28,7 @@ module.exports = {
         try {
             const thought = await Thought.create(req.body);
             const user = await User.findOneAndUpdate(
-                { username: req.body.username },
+                { _id: req.body.userId },
                 { $push: { thoughts: thought._id } },
                 { new: true }
             );
