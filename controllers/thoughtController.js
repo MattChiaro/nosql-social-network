@@ -54,6 +54,11 @@ module.exports = {
     async deleteThought(req, res) {
         try {
             const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+            const user = await User.findOneAndUpdate(
+                { username: thought.username },
+                { $pull: { thoughts: thought._id } },
+                { new: true }
+            );
 
             if (!thought) {
                 return res.status(404).json({ message: 'No thought with this id!' });
