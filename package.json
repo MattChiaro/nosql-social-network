@@ -11,7 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index",
-    "start": "node index"
+    "start": "node index",
+    "seed": "node utils/seed.js"
   },
   "keywords": [],
   "author": "",
