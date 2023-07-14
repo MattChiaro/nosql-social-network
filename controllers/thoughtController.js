@@ -43,11 +43,9 @@ module.exports = {
     // update a thought by id
     async updateThought(req, res) {
         try {
-            const thought = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId },
-                req.body,
-                { new: true, runValidators: true }
-            );
+            const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },
+                req.body, { new: true, runValidators: true });
+                res.json(thought);
         } catch (err) {
             res.status(400).json(err);
         }
@@ -68,8 +66,7 @@ module.exports = {
     // add a reaction to a thought
     async addReaction(req, res) {
         try {
-            const thought = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId },
+            const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },
                 { $push: { reactions: req.body } },
                 { new: true, runValidators: true }
             );
@@ -84,8 +81,7 @@ module.exports = {
     // remove a reaction from a thought
     async removeReaction(req, res) {
         try {
-            const thought = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId },
+            const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },
                 { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { new: true }
             );
